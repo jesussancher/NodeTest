@@ -6,6 +6,11 @@ const bodyParser = require('body-parser');
 const app = express();
 const { response } = require('express');
 
+app.listen(8000, () =>{
+    console.log("Servidor iniciado en el puerto 8000")
+})
+app.use(express.static('public')) //Servir archivos estáticos sobre el directorio Public
+
 app.get('/', (req,res) =>{
     console.log(req)
     res.send("<h1>Hello world</h1>")
@@ -15,27 +20,24 @@ app.get('/bienvenida', (req,res) =>{
     res.send("<h1>Sección de Bienvenida</h1>")
 })
 
-app.listen(8000, () =>{
-    console.log("Servidor iniciado en el puerto 8000")
-})
+
 app.use('/', router);
-app.use(express.static('public'))
 app.use(bodyParser.urlencoded())
 
 app.get('/inicio', (request, response) =>{
     console.log(request.url)
-    response.sendFile(path.join(__dirname+'/./assets/login.html'));
+    response.sendFile(path.join(__dirname,'/./assets/login.html'));
 })
 app.get('/registro', (request, response) =>{
     console.log(request.url)
-    response.sendFile(path.join(__dirname+'/./assets/register.html'));
+    response.sendFile(path.join(__dirname,'/./assets/register.html'));
 })
 app.use((req, res) => {
     res.send('<h1>404</h1>')
 })
 app.get('/restablecer-contrasena', (request, response) =>{
     console.log(request.url)
-    response.sendFile(path.join(__dirname+'/./assets/forgot-password.html'));
+    response.sendFile(path.join(__dirname,'/./assets/forgot-password.html'));
 })
 app.get('/nosotros', (request, response) =>{
     let count = [];
